@@ -1,0 +1,95 @@
+﻿@charset "utf-8";
+
+/* =======================================
+
+	CommonElements
+
+======================================= */
+body {
+	font-size: 100%;
+	line-height: 160%;
+	font-family: "メイリオ", "Meiryo", "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro", "Osaka", "ＭＳ Ｐゴシック", "MS P Gothic", Verdana, Arial, Helvetica, sans-serif;
+	color: #000;
+	text-align: center;
+	background: #fff;
+}
+
+a:link { text-decoration:none; color: #000;}
+a:visited { text-decoration:none; color: #000;}
+a:active { text-decoration:none; color: #000;}
+a:hover { text-decoration:none; color: #000;}
+
+h1 {
+	padding: 10px 0;
+	background: #000;
+	color: #fff;
+	font-size: 12px;
+	font-weight: bold;
+	text-align: center;
+}
+h2 {
+	padding: 30px 0;
+	width: 100%;
+	font-size: 12px;
+}
+
+#container {
+	width: 100%;
+	text-align: center;
+}
+
+/* field
+------------------------- */
+#field1,
+#field2,
+#field3,
+#field4,
+#field5,
+#field6 {
+	padding: 20px 0;
+	width: 100%;
+	height: 300px;
+	text-align: center;
+	border-top: #000 1px solid;
+	border-bottom: #000 1px solid;
+	overflow: hidden;
+}
+#field1 {background: #fff;}
+#field2 {background: #eee;}
+#field3 {background: #ddd;}
+#field4 {background: #ccc;}
+#field5 {background: #bbb;}
+#field6 {background: #aaa;}
+
+.scrImg {
+	left: -100px;
+	margin: 0 auto;
+	display: none;
+	position: relative;
+}
+.scrImgg {
+}
+.frame {
+	position: relative;
+	display: inline-block;
+	overflow: hidden; /* 不要部分を消す */
+	padding: 1px;
+}
+.frame:after {
+	content: "";
+	position: absolute;
+	z-index: 1;
+	width: 100px;
+	height: auto;
+	background: red;
+	content: "New";	/* 表示するテキスト */
+	text-align: center;
+	color: #fff;
+	font-family: 'Arial';
+	font-weight: bold;
+	padding: 5px 10px;
+	left: -30px;
+	top: 3px;
+	transform: rotate(-30deg);
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}

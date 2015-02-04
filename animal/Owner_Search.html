@@ -1,0 +1,81 @@
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" Content="text/html;charset=UTF-8">
+<title>飼い主一覧（リスト）</title>
+<link rel="shortcut icon" href="../assets/pad.png" type="image/png">
+<link rel="stylesheet" type="text/css" href="./css/table.css">
+<link rel="stylesheet" type="text/css" href="./css/menu.css">
+<script type="text/javascript" src="tablekit/scriptaculous/lib/prototype.js"></script>
+<script type="text/javascript" src="tablekit/fastinit.js"></script>
+<script type="text/javascript" src="tablekit/tablekit.js"></script>
+<style type="text/css">
+<!--
+body {
+	background-image: url("../assets/02.jpg");
+	background-repeat: repeat;
+	font-family: "Lucida Grande", "segoe UI", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", Meiryo, Verdana, Arial, sans-serif;
+	//font-family: "Lucida Grande", "segoe UI", "ヒラギノ丸ゴ ProN W4", "Hiragino Maru Gothic ProN", Meiryo, Arial, sans-serif;
+	//font-size:0.9em
+}
+//-->
+</style>
+</head>
+<body>
+<div class="nav">
+	<ul class="nl clearFix">
+		<li class="item1">
+			<a href="../top.html">ホーム</a>
+		</li>
+		<li class="item1">
+			<a href="../owner/owner.html">新規登録</a>
+		</li>
+		<li class="item1">
+			<a href="../animal/Owner_Search.html">ペット情報管理</a>
+		</li>
+		<li class="item2">
+			<a href="../owner/Owner_Search.html">会員情報変更・削除</a>
+		</li>
+		<li class="item2">
+			<a href="../main/result.html">ペットの体重・血液</a>
+		</li>
+	</ul>
+</div>
+<br>
+<div class="centerMiddle">
+<table border class="sortable resizable" bgcolor="#FFFFFF">
+<tr>
+<th class="text"   width="150" height="50" align="center">お名前</th>
+<th class="number" width="150" align="center">郵便番号</th>
+<th class="number" width="150" align="center">自宅番号</th>
+<th class="number" width="150" align="center">携帯番号</th>
+<th class="text"   width="200" align="center">メールアドレス</th>
+<th class="text"   width="150" align="center">ペットリスト</th>
+</tr>
+	<?php
+	//データベース接続＆追加
+	try{
+		$pdo = new PDO ( "mysql:host=mysql.miraiserver.com;charset=utf8;
+		 dbname=u661551261_wan", "u661551261_wan", "u661551261" );//DBアクセス
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+		$res = $pdo->query("SELECT * FROM  `owner` ");
+		while($result = $res->fetch(PDO::FETCH_ASSOC)){
+			print('<tr>');
+			print('<td align="center" height="50">'.$result['owner_name'].'</td>');
+			print('<td align="center">'.$result['postal_code'].'</td>');
+			print('<td align="center">'.$result['home_number'].'</td>');
+			print('<td align="center">'.$result['phone_number'].'</td>');
+			print('<td align="center">'.$result['mail_address'].'</td>');
+			/*print('<td><a class="sample3" href="Owner_Search.php?id='
+			.$result['owner_id'].'" >ペットへ</a></td>');*/
+			print('<td><a class="sample3" href="newOwner_Search.php?id='
+			.$result['owner_id'].'" >ペットリストへ</a></td>');
+			print('</tr>');
+		}
+	}catch (PDOException $e){
+		print('Connection failed:'.$e->getMessage());
+	}
+	?>
+</table>
+</div>
+</body>
+</html>

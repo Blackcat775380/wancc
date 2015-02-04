@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+	<title>詳細情報登録</title>
+	<link rel="shortcut icon" href="../assets/pad.png" type="image/png">
+	<link rel="stylesheet" type="text/css" href="./css/owner.css">
+	<link rel="stylesheet" type="text/css" href="./css/menu.css">
+	</head>	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script>
+	function load(){
+<?php
+		session_start();
+		if(isset($_SESSION["animal_id"])){
+			$id = $_SESSION["animal_id"];
+			try{
+				$pdo = new PDO ( "mysql:host=mysql.miraiserver.com;charset=utf8;
+				 dbname=u661551261_wan", "u661551261_wan", "u661551261" );//DBアクセス
+				$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+				$res = $pdo->query("SELECT * FROM  `animal_detail` WHERE `animal_id` = $id;");
+				$result = $res->fetch(PDO::FETCH_ASSOC);
+				print('$("#dinner").val("'.$result['dinner'].'");'."\n\t");
+				print('$("#disposal").val("'.$result['disposal'].'");'."\n\t");
+				print('$("#prevention").val("'.$result['prevention'].'");'."\n\t");
+				print('$("#flea").val("'.$result['fleas'].'");'."\n\t");
+				print('$("#avaccine").val("'.$result['avaccine'].'");'."\n\t");
+				print('$("#medical_history").val("'.$result['medical_history'].'");'."\n\t");
+				print('$("#allergy").val("'.$result['allergy'].'");'."\n");
+			}catch (PDOException $e){
+				print('Connection failed:'.$e->getMessage());
+			}
+		}
+?>
+	}
+	</script>
+	<style type="text/css">
+<!--
+body {
+	background-image: url("../assets/02.jpg");
+	background-repeat: repeat;
+	font-family: "Lucida Grande", "segoe UI", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", Meiryo, Verdana, Arial, sans-serif;
+	//font-family: "Lucida Grande", "segoe UI", "ヒラギノ丸ゴ ProN W4", "Hiragino Maru Gothic ProN", Meiryo, Arial, sans-serif;
+	font-size:1.5em
+}
+//-->
+	</style>
+<body onLoad="load()">
+<div class="nav"><ul class="nl clearFix"><li class="item1"><a href="../top.html">ホーム</a></li></ul></div>
+	<br>
+	<div class="centerMiddles" Align="center">
+	<form method="post" action="detailed_information.php" class="contact">
+	<table>
+	<tr>
+		<td>
+<?php
+	if(isset($_SESSION["animal_id"])){
+		$animal_id = $_SESSION["animal_id"];
+		try{
+			$pdo = new PDO ( "mysql:host=mysql.miraiserver.com;charset=utf8; dbname=u661551261_wan", "u661551261_wan", "u661551261" );//DBアクセス
+			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+			$res = $pdo->query("SELECT * FROM  `animal` , `owner` WHERE  `animal`.`owner_id` =  `owner`.`owner_id` and `animal_id` = ".$animal_id);
+			$result = $res->fetch(PDO::FETCH_ASSOC);
+			print("カルテNo.".$result['karte_id']);
+			print("</td><td>");
+			print("ペット名 ".$result['animal_name']);
+		}catch (PDOException $e){
+		}
+	}
+?>
+		</td>
+	</tr>
+	</table>
+	<table>
+	<tbody>
+	<tr>
+	<th><label for="dinner">食事</label></th>
+		<td class="required"></td>
+		<td><TEXTAREA cols="50" rows="4" wrap="off" id ="dinner" name="dinner"></TEXTAREA></td>
+	</tr>
+	<tr>
+	<th><label for="disposal">投薬・処置</label></th>
+		<td class="required"></td>
+		<td><TEXTAREA cols="50" rows="3" wrap="off" id="disposal" name="disposal"></TEXTAREA></td>
+	</tr>
+	<tr>
+	<th><label for="prevention">フィラリア</label></th>
+		<td class="required"></td>
+		<td><TEXTAREA cols="50" rows="3" wrap="off" id="prevention" name="prevention"></TEXTAREA></td>
+	</tr>
+	<tr>
+	<th><label for="flea">ノミ・ダニ予防</label></th>
+		<td class="required"></td>
+		<td><TEXTAREA cols="50" rows="3" wrap="off" id="flea" name="flea"></TEXTAREA></td>
+	</tr>
+	<tr>
+	<th><label for="vaccine">混合ワクチン</label></th>
+		<td class="arbitrary"></td>
+		<td><table>
+		<?php		//データベース接続＆追加
+		try{
+			$pdo = new PDO ( "mysql:host=mysql.miraiserver.com;charset=utf8;
+			 dbname=u661551261_wan", "u661551261_wan", "u661551261" );//DBアクセス
+			$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+			$res = $pdo->query("SELECT * FROM `vaccine`");
+			while($result = $res->fetch(PDO::FETCH_ASSOC)){
+				print("<tr>");
+				print('<td><input type="checkbox" name="vaccine[]" value="'.$result['vaccine_id'].'" ></td>');
+				print('<td>'.$result['vaccine_name'].'</td>');
+				print('<td><input type="date" name="'.$result['vaccine_id '].'"></td>');
+				print("</tr>\n\t\t");
+			}
+		}catch (PDOException $e){
+			print('Connection failed:'.$e->getMessage());
+		}
+		?>
+		</table>
+		</td>
+	</tr>
+	<tr>
+	<th><label for="fax1">狂犬病予防注射</label></th>
+		<td class="arbitrary"></td>
+		<td><TEXTAREA cols="50" rows="3" wrap="off" id="avaccine" name="avaccine" ></TEXTAREA></td>
+	</tr>
+	<tr>
+	<th><label for="fax1">既住歴</label></th>
+		<td class="arbitrary"></td>
+		<td><TEXTAREA cols="50" rows="3" wrap="off" id="medical_history" name="medical_history"></TEXTAREA></td>
+	</tr>
+		<tr>
+	<th><label for="fax1">アレルギーの有無</label></th>
+		<td class="arbitrary"></td>
+		<td><TEXTAREA cols="50" rows="3" wrap="off" id="allergy" name="allergy"></TEXTAREA></td>
+	</tr>
+	</tbody>
+	</table>
+	<p class="button"><input type="submit" name="submit" value="体重・血液へ戻る"></p>
+	</form></div>
+</body>
+</html>

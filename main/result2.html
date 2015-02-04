@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xml:lang="ja" lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=0">
+<title>一覧リスト list</title>
+<link rel="stylesheet" href="http://black-flag.net/data/css/reset.css">
+<link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="menu.css" type="text/css">
+<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>
+<!--
+$(function(){
+	var setElm = $('.scrImg'),
+	delayHeight = 250;
+
+	setElm.css({display:'block',opacity:'0'});
+	$('html,body').animate({scrollTop:0},1);
+
+	$(window).on('load scroll resize',function(){
+		setElm.each(function(){
+			var setThis = $(this),
+			elmTop = setThis.offset().top,
+			elmHeight = setThis.height(),
+			scrTop = $(window).scrollTop(),
+			winHeight = $(window).height();
+			if (scrTop > elmTop - winHeight + delayHeight && scrTop < elmTop + elmHeight){
+				setThis.stop().animate({left:'0',opacity:'1'},500);
+			} else if (scrTop < elmTop - winHeight + delayHeight && scrTop < elmTop + delayHeight){
+				setThis.stop().animate({left:'-100px',opacity:'0'},500);
+			}
+		});
+	});
+});
+-->
+</script>
+</head>
+<body>
+<div class="nav">
+	<ul class="nl clearFix">
+		<li class="item1">
+			<a href="../top.html">ホーム</a>
+		</li>
+		<li class="item1">
+			<a href="../owner/owner.html">新規登録</a>
+		</li>
+		<li class="item1">
+			<a href="../animal/Owner_Search.html">ペット情報管理</a>
+		</li>
+		<li class="item1">
+			<a href="../owner/Owner_Search.html">会員情報変更・削除</a>
+		</li>
+		<li class="item1">
+			<a href="../main/result.html">ペットの体重・血液</a>
+		</li>
+	</ul>
+</div>
+<br>
+<?php
+$array = array();
+//データベース接続＆追加
+try{
+	$pdo = new PDO ( "mysql:host=mysql.miraiserver.com;charset=utf8;
+	 dbname=u661551261_wan", "u661551261_wan", "u661551261" );//DBアクセス
+	$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+	$res = $pdo->query("SELECT * FROM  `animal` ,  `owner` 
+	WHERE  `animal`.`owner_id` =  `owner`.`owner_id` order by `animal`.`owner_id`");
+	$con = 0;
+	while($result = $res->fetch(PDO::FETCH_ASSOC)){
+		$array[$con] = trtd($result);
+		$con++;
+	}
+}catch (PDOException $e){
+	print('Connection failed:'.$e->getMessage());
+}
+
+function trtd($result){
+	$str = '<tr><td><font size="5" >カルテNo：'.$result['karte_id'].'</font></td>';
+	$str = $str.'<td>ペット名：'.$result['animal_name'].'</td></tr>';
+	$str = $str.'<tr><td>鑑札番号：'.$result['animal_number'].'</td>';
+	$str = $str.'<td rowspan="5"><img border="0" src="../animal/img/'.noimg($result['image_url']).'" width="250" height="250" class="scrImg"></td></tr>';
+	$str = $str.'<tr><td>マイクロ：'.$result['microchip'].'</td></tr>';
+	$str = $str.'<tr><td>飼い主名：'.$result['owner_name'].'</td></tr>';
+	$str = $str.'<tr><td>ご自宅　：'.$result['home_number'].'</td></tr>';
+	$str = $str.'<tr><td>携帯電話：'.$result['phone_number'].'</td></tr>';
+	$str = $str.'<tr><td></td><td><a class="sample3" href="result.php?id='.$result['animal_id'].'" >体重・血液へ</a></td></tr>';
+	return $str;
+}
+function noimg($image_url){
+	if(strlen($image_url) > 4){
+		return $image_url;
+	}else{
+		return "noimage.jpg";
+	}
+}
+?>
+<div id="container">
+
+<div id="field1"><table width="100%"><tr>
+<td><table style="border:1px black solid; margin:0px 300px;"><?php echo $array[0]; ?></table></td>
+<td><table style="border:1px black solid; margin:0px 300px;"><?php echo $array[1]; ?></table></td>
+</tr></table></div><!--/#field1-->
+
+<div id="field2"><table width="100%"><tr>
+<td align="right"><table style="border:1px black solid; margin:0px 200px;" width="50%"><?php echo $array[2]; ?></table></td>
+<td><table style="border:1px black solid; margin:0px 200px;" width="50%"><?php echo $array[3]; ?></table></td>
+</tr></table></div><!--/#field2-->
+
+</div><!--/#container-->
+</body>
+</html>

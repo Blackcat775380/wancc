@@ -1,0 +1,60 @@
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" Content="text/html;charset=UTF-8">
+<title>一覧（リスト）</title>
+<!--<link rel="stylesheet" href="result.css" type="text/css">-->
+<link rel="stylesheet" href="css/table.css" type="text/css">
+<script type="text/javascript">
+<!--
+
+function disp(num){
+	// 「OK」時の処理開始 ＋ 確認ダイアログの表示
+	if(window.confirm('本当にいいんですね？')){
+		location.href = "Pet_delete.php?id="+num;
+	}
+	// 「OK」時の処理終了
+	// 「キャンセル」時の処理開始
+	else{
+		window.alert('キャンセルされました'); // 警告ダイアログを表示
+	}
+	// 「キャンセル」時の処理終了
+}
+
+// -->
+</script>
+</head>
+<body>
+<table border>
+<ul class="nl clearFix">
+<li class="item1"><a href="../top.html">ホーム</a></li><br>
+</ul>
+	<?php
+	//データベース接続＆追加
+	try{
+		$pdo = new PDO ( "mysql:host=mysql.miraiserver.com;charset=utf8;
+		 dbname=u661551261_wan", "u661551261_wan", "u661551261" );//DBアクセス
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+		$res = $pdo->query("SELECT * FROM  `animal` ,  `owner` 
+		WHERE  `animal`.`owner_id` =  `owner`.`owner_id` order by `animal`.`owner_id`");
+		while($result = $res->fetch(PDO::FETCH_ASSOC)){
+			print("\n");
+			print('<tr><td>カルテNo：'.$result['karte_id'].'</td>');
+			print('<td>ペット名：'.$result['animal_name'].'</td></tr>');
+			
+			print('<tr><td>鑑札番号：'.$result['animal_number'].'</td>');
+			print('<td rowspan="5"><img border="0" src="../animal/img/'.
+			$result['image_url'].'" width="200" height="200"></td></tr>');
+			print('<tr><td>マイクロ：'.$result['microchip'].'</td></tr>');
+			print('<tr><td>飼い主名：'.$result['owner_name'].'</td></tr>');
+			print('<tr><td>ご自宅　：'.$result['home_number'].'</td></tr>');
+			print('<tr><td>携帯電話：'.$result['phone_number'].'</td></tr>');
+			print('<tr><td><input type="button" value="削除" onClick="disp('.$result['animal_id'].")\"></td>\n");
+			print('<td><a class="sample3" href="pet_select.php?id='.$result['animal_id'].'" >変更へ</a></td></tr>');
+		}
+	}catch (PDOException $e){
+		print('Connection failed:'.$e->getMessage());
+	}
+	?>
+</table>
+</body>
+</html>

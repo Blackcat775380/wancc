@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head data-gwd-animation-mode="quickMode">
+  <title>wancc</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="shortcut icon" href="assets/pad.png" type="image/png">
+  <meta name="generator" content="Google Web Designer 1.1.3.1119">
+  <link rel="stylesheet" href="css/style.css" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Knewave" rel="stylesheet" type="text/css">
+  <style>
+    #loading{
+     position:absolute;
+     left:50%;
+     top:50%;
+     margin-left:-30px;
+    }
+    #footer {
+     clear:both;
+     background:#ff7200;
+     padding : 10px 0;
+     text-align: center;
+      color:#ffffff;
+    }
+  </style>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+  <script type="text/javascript">
+      <!--
+    //コンテンツの非表示
+    $(function(){
+        $('#contents').css('display', 'none');
+    });
+    //ページの読み込み完了後に実行
+    window.onload = function(){
+        $(function() {
+            //ページの読み込みが完了したのでアニメーションはフェードアウトさせる
+            $("#loading").fadeOut();
+            //ページの表示準備が整ったのでコンテンツをフェードインさせる
+            $("#contents").fadeIn();
+        });
+    }
+      //-->
+  </script>
+  <script type="text/javascript" gwd-events="support" src="gwd-events-support.1.0.js"></script>
+  <script type="text/javascript" gwd-events="handlers">
+    gwd.new = function(event) {
+      location.href = "owner/owner.html";
+    };
+    gwd.petadd = function(event) {
+      location.href = "animal/Owner_Search.html";
+    };
+    gwd.wb = function(event) {
+      location.href = "main/result.html";
+    };
+    gwd.paint = function(event) {
+      location.href = "../paint/Mycanvas.html";
+    };
+    gwd.petC = function(event) {
+      location.href = "animal/pet_select.html";
+    };
+    gwd.memberC = function(event) {
+      location.href = "owner/Owner_Search.html";
+    };
+    gwd.henkouov = function(event) {
+      document.henkou.src = "assets/kaiin_tyanji.png";
+    };
+    gwd.henkouout = function(event) {
+      document.henkou.src = "assets/kaiin_tyanji_1.png";
+    };
+    gwd.newov = function(event) {
+      document.new.src = "assets/sinki_1.png";
+    };
+    gwd.newout = function(event) {
+      document.new.src = "assets/sinki_2.png";
+    };
+    gwd.petaddov = function(event) {
+      document.petadd.src = "assets/patto.png";
+    };
+    gwd.petaddout = function(event) {
+      document.petadd.src = "assets/patto_1.png";
+    };
+    gwd.paintov = function(event) {
+      document.paint.src = "assets/peint_1.png";
+    };
+    gwd.paintout = function(event) {
+      document.paint.src = "assets/peint_2.png";
+    };
+    gwd.pettaizyubloodov = function(event) {
+      //pettaizyublood
+      document.pettaizyublood.src = "assets/patto_b.png";
+    };
+    gwd.pettaizyubloodout = function(event) {
+      //pettaizyublood
+      document.pettaizyublood.src = "assets/patto_b_1.png";
+    };
+    gwd.pethenkouov = function(event) {
+      //pethenkou
+      document.pethenkou.src = "assets/patto_tyanji_1.png";
+    };
+    gwd.pethenkouout = function(event) {
+      //pethenkou
+      document.pethenkou.src = "assets/patto_tyanji_2.png";
+    };
+    gwd.animalkanri = function(event) {
+      location.href = "animal/Owner_Search.html";
+    };
+    gwd.animalov = function(event) {
+      document.pet.src = "assets/patto_zyouhou.png";
+    };
+    gwd.animalout = function(event) {
+      document.pet.src = "assets/patto_zyouhou_1.png";
+    };
+  </script>
+  <script type="text/javascript" gwd-events="registration">
+    // Google Web Designer のイベント処理用サポート コード
+     // このスクリプト ブロックは自動生成されます。編集しないでください。
+    gwd.actions.events.registerEventHandlers = function(event) {
+      gwd.actions.events.addHandler('touroku', 'click', gwd.new, false);
+      gwd.actions.events.addHandler('henkou', 'click', gwd.memberC, false);
+      gwd.actions.events.addHandler('pettaizyublood', 'click', gwd.wb, false);
+      gwd.actions.events.addHandler('paint', 'click', gwd.paint, false);
+      gwd.actions.events.addHandler('henkou', 'mouseover', gwd.henkouov, false);
+      gwd.actions.events.addHandler('henkou', 'mouseout', gwd.henkouout, false);
+      gwd.actions.events.addHandler('touroku', 'mouseover', gwd.newov, false);
+      gwd.actions.events.addHandler('touroku', 'mouseout', gwd.newout, false);
+      gwd.actions.events.addHandler('paint', 'mouseover', gwd.paintov, false);
+      gwd.actions.events.addHandler('paint', 'mouseout', gwd.paintout, false);
+      gwd.actions.events.addHandler('pettaizyublood', 'mouseover', gwd.pettaizyubloodov, false);
+      gwd.actions.events.addHandler('pettaizyublood', 'mouseout', gwd.pettaizyubloodout, false);
+      gwd.actions.events.addHandler('pet', 'click', gwd.animalkanri, false);
+      gwd.actions.events.addHandler('pet', 'mouseover', gwd.animalov, false);
+      gwd.actions.events.addHandler('pet', 'mouseout', gwd.animalout, false);
+    };
+    gwd.actions.events.deregisterEventHandlers = function(event) {
+      gwd.actions.events.removeHandler('touroku', 'click', gwd.new, false);
+      gwd.actions.events.removeHandler('henkou', 'click', gwd.memberC, false);
+      gwd.actions.events.removeHandler('pettaizyublood', 'click', gwd.wb, false);
+      gwd.actions.events.removeHandler('paint', 'click', gwd.paint, false);
+      gwd.actions.events.removeHandler('henkou', 'mouseover', gwd.henkouov, false);
+      gwd.actions.events.removeHandler('henkou', 'mouseout', gwd.henkouout, false);
+      gwd.actions.events.removeHandler('touroku', 'mouseover', gwd.newov, false);
+      gwd.actions.events.removeHandler('touroku', 'mouseout', gwd.newout, false);
+      gwd.actions.events.removeHandler('paint', 'mouseover', gwd.paintov, false);
+      gwd.actions.events.removeHandler('paint', 'mouseout', gwd.paintout, false);
+      gwd.actions.events.removeHandler('pettaizyublood', 'mouseover', gwd.pettaizyubloodov, false);
+      gwd.actions.events.removeHandler('pettaizyublood', 'mouseout', gwd.pettaizyubloodout, false);
+      gwd.actions.events.removeHandler('pet', 'click', gwd.animalkanri, false);
+      gwd.actions.events.removeHandler('pet', 'mouseover', gwd.animalov, false);
+      gwd.actions.events.removeHandler('pet', 'mouseout', gwd.animalout, false);
+    };
+    document.addEventListener("DOMContentLoaded", gwd.actions.events.registerEventHandlers);
+    document.addEventListener("unload", gwd.actions.events.deregisterEventHandlers);
+  </script>
+</head>
+
+<body>
+  <div id="loading"><img src="assets/loading.gif"></div>
+  <div class="main" id="contents">
+    <div>
+      <img src="assets/h2_honmono1.png" id="title"><br><br><br><br>
+
+      <img src="assets/sinki_2.png" id="touroku" name="new">
+      <img src="assets/space.png" >
+      <img src="assets/patto_zyouhou_1.png" id="pet" name="pet">
+
+      <img src="assets/space.png" >
+      <img src="assets/patto_b_1.png" id="pettaizyublood" name="pettaizyublood">
+      <img src="assets/space.png" ><br><br><br>
+
+      <img src="assets/kaiin_tyanji_1.png" id="henkou" name="henkou">
+      <img src="assets/space.png" >
+      <img src="assets/peint_2.png" id="paint" name="paint"><br><br><br>
+
+    </div>
+  </div>
+<footer id="footer" role="contentinfo">
+<p><small>Copyright &copy; 2015 ○○○○ All rights Reserved.</small></p>
+</footer>
+</body>
+</html>

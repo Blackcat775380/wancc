@@ -1,0 +1,110 @@
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" Content="text/html;charset=UTF-8">
+<title>飼い主一覧（リスト）</title>
+<link rel="shortcut icon" href="../assets/pad.png" type="image/png">
+<link rel="stylesheet" type="text/css" href="./css/table.css">
+<link rel="stylesheet" type="text/css" href="./css/menu.css">
+<script type="text/javascript" src="tablekit/scriptaculous/lib/prototype.js"></script>
+<script type="text/javascript" src="tablekit/fastinit.js"></script>
+<script type="text/javascript" src="tablekit/tablekit.js"></script>
+<script type="text/javascript">
+<!--
+
+function disp(num){
+	// 「OK」時の処理開始 ＋ 確認ダイアログの表示
+	if(window.confirm('本当にいいんですね？')){
+		location.href = "Owner_delete.php?id="+num;
+	}
+	// 「OK」時の処理終了
+	// 「キャンセル」時の処理開始
+	else{
+		window.alert('キャンセルされました'); // 警告ダイアログを表示
+	}
+	// 「キャンセル」時の処理終了
+}
+
+// -->
+</script>
+<style type="text/css">
+<!--
+body {
+	background-image: url("../assets/02.jpg");
+	background-repeat: repeat;
+	font-family: "Lucida Grande", "segoe UI", "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", Meiryo, Verdana, Arial, sans-serif;
+	//font-family: "Lucida Grande", "segoe UI", "ヒラギノ丸ゴ ProN W4", "Hiragino Maru Gothic ProN", Meiryo, Arial, sans-serif;
+	//font-size:0.9em
+}
+//-->
+</style>
+</head>
+<body>
+<div class="nav">
+	<ul class="nl clearFix">
+		<li class="item1">
+			<a href="../top.html">ホーム</a>
+		</li>
+		<li class="item1">
+			<a href="#">新規登録</a>
+		</li>
+		<li class="item1">
+			<a href="../animal/Owner_Search.html">ペット情報管理</a>
+		</li>
+		<li class="item2">
+			<a href="../owner/Owner_Search.html">会員情報変更・削除</a>
+		</li>
+		<li class="item2">
+			<a href="../main/result.html">ペットの体重・血液</a>
+		</li>
+	</ul>
+</div>
+<br>
+<div class="centerMiddle">
+<table border class="sortable resizable" bgcolor="#FFFFFF">
+<thead>
+<tr>
+<th width="100">削除</th>
+<!-- 2015/02/04
+<th class="text" title="クリックで並び替え">お名前</th>
+<th class="number" title="クリックで並び替え">郵便番号</th>
+<th class="number" title="クリックで並び替え">自宅番号</th>
+<th class="number" title="クリックで並び替え">携帯番号</th>
+<th class="text" title="クリックで並び替え">メールアドレス</th>
+-->
+<th class="text"   width="150" height="50" align="center">お名前</th>
+<th class="number" width="150" align="center">郵便番号</th>
+<th class="number" width="150" align="center">自宅番号</th>
+<th class="number" width="150" align="center">携帯番号</th>
+<th class="text"   width="225" align="center">メールアドレス</th>
+<th width="100">変更</th>
+</tr>
+</thead>
+<tbody>
+<?php
+	//データベース接続＆追加
+	try{
+		$pdo = new PDO ( "mysql:host=mysql.miraiserver.com;charset=utf8;
+		 dbname=u661551261_wan", "u661551261_wan", "u661551261" );//DBアクセス
+		$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+		$res = $pdo->query("SELECT * FROM  `owner` ");
+		while($result = $res->fetch(PDO::FETCH_ASSOC)){
+			print("<tr>\n");
+			print('<td align="center" height="50"><input type="button" value="削除" onClick="disp('.$result['owner_id'].")\"></td>\n");
+			print('<td align="center">'.$result['owner_name']."</td>\n");
+			print('<td align="center">'.$result['postal_code']."</td>\n");
+			print('<td align="center">'.$result['home_number']."</td>\n");
+			print('<td align="center">'.$result['phone_number']."</td>\n");
+			print('<td align="center">'.$result['mail_address']."</td>\n");
+			print('<td align="center"><a class="sample3" href="Owner_Search.php?id='
+			.$result['owner_id'].'" >変更へ</a></td>');
+			print("</tr>\n");
+		}
+	}catch (PDOException $e){
+		print('Connection failed:'.$e->getMessage());
+	}
+	?>
+	</tbody>
+</table>
+</div>
+</body>
+</html>
